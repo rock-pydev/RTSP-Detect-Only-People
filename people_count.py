@@ -1,22 +1,26 @@
-from imageai.Detection import ObjectDetection
+from imageai.Detection import VideoObjectDetection
 import cv2
 import os
 
 def detect():
     execution_path = os.getcwd()
 
-    detector = ObjectDetection()
-    detector.setModelTypeAsYOLOv3()
-    detector.setModelPath(os.path.join(execution_path , "yolo.h5"))
-    detector.loadModel()
-    detections = detector.detectObjectsFromImage(input_image=os.path.join(execution_path , filename), output_image_path=os.path.join(execution_path , "1.jpg"), minimum_percentage_probability=30)
+    def forSeconds(second_number, output_arrays, count_arrays, average_output_count):
+        print(average_output_count.get('person', 0))
 
-    for eachObject in detections:
-        print(eachObject["name"] , " : ", eachObject["percentage_probability"], " : ", eachObject["box_points"] )
-        print("--------------------------------")
 
-def read_video():
-    pass
+    video_detector = VideoObjectDetection()
+    video_detector.setModelTypeAsYOLOv3()
+    video_detector.setModelPath(os.path.join(execution_path, "yolo.h5"))
+    video_detector.loadModel()
+
+    video_detector.detectObjectsFromVideo(
+        input_file_path=os.path.join(execution_path, "test.mp4"),
+        output_file_path=os.path.join(execution_path, "traffic_detected"),
+        frames_per_second=10,
+        per_second_function=forSeconds,
+        minimum_percentage_probability=30
+    )
 
 if __name__ == "__main__":
     detect()
