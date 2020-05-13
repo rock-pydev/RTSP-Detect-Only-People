@@ -1,1 +1,5 @@
-<h1>Count people on the road in real-time via IP camera</h1>
+# Automation Trigger Video Doorbell
+
+## Detect only people via several IP camera
+
+## Calculate Size of people and distance between people and camera
